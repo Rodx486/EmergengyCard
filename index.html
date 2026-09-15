@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartões de Emergência</title>
+    <!-- Modern fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="controls no-print">
+        <button onclick="window.print()"><i class="fas fa-print"></i> Imprimir Cartões</button>
+        <button onclick="addCardPair()"><i class="fas fa-plus"></i> Adicionar Mais um Par</button>
+
+        <div class="customization-tools">
+            <span class="tool-label">Design:</span>
+            <select id="templateSelect" onchange="changeTemplate()" class="template-select">
+                <option value="template-1">Padrão</option>
+                <option value="template-2">Com QR Code</option>
+            </select>
+            
+            <span class="tool-label" style="margin-left: 10px;">Estilo do Texto:</span>
+            <input type="color" id="textColor" value="#111111" title="Cor do texto" oninput="updateTextStyle()">
+            <button id="btnBold" class="tool-btn" onclick="toggleStyle('bold')" title="Negrito"><i class="fas fa-bold"></i></button>
+            <button id="btnItalic" class="tool-btn" onclick="toggleStyle('italic')" title="Itálico"><i class="fas fa-italic"></i></button>
+        </div>
+    </div>
+
+    <div class="page-container template-1" id="cards-container">
+        <!-- Card Pair 1 -->
+        <div class="card-pair">
+            <!-- Front Card -->
+            <div class="card front">
+                <div class="card-header">
+                    <i class="fas fa-star-of-life logo"></i>
+                    <h1>EM CASO DE EMERGÊNCIA</h1>
+                </div>
+                <div class="card-body">
+                    <div class="photo-section">
+                        <label class="photo-upload upload-box">
+                            <input type="file" accept="image/*" onchange="previewImage(this)">
+                            <div class="photo-placeholder">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="#ccc" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"/>
+                                </svg>
+                                <span>FOTO 3x4</span>
+                            </div>
+                            <img class="photo-preview" src="" alt="Sua foto">
+                        </label>
+                        <label class="qr-upload upload-box">
+                            <input type="file" accept="image/*" onchange="previewImage(this)">
+                            <div class="photo-placeholder">
+                                <i class="fas fa-qrcode" style="font-size: 16px; color: #ccc;"></i>
+                                <span>QR CODE</span>
+                            </div>
+                            <img class="photo-preview" src="" alt="QR Code">
+                        </label>
+                    </div>
+                    <div class="info-section">
+                        <div class="field-row">
+                            <i class="fas fa-user field-icon"></i>
+                            <div class="field-content">
+                                <label>NOME COMPLETO</label>
+                                <input type="text" class="line-input">
+                            </div>
+                        </div>
+                        <div class="field-row">
+                            <i class="fas fa-calendar-alt field-icon"></i>
+                            <div class="field-content">
+                                <label>DATA DE NASCIMENTO</label>
+                                <input type="text" class="line-input" placeholder="DD / MM / AAAA">
+                            </div>
+                        </div>
+                        <div class="field-row">
+                            <i class="fas fa-id-card field-icon"></i>
+                            <div class="field-content">
+                                <label>NÚMERO DE IDENTIFICAÇÃO</label>
+                                <input type="text" class="line-input">
+                            </div>
+                        </div>
+                        <div class="field-row blood-type-row">
+                            <i class="fas fa-tint field-icon"></i>
+                            <div class="field-content no-border">
+                                <label>TIPO SANGUÍNEO</label>
+                                <div class="blood-options">
+                                    <label><input type="checkbox"> A+</label>
+                                    <label><input type="checkbox"> A-</label>
+                                    <label><input type="checkbox"> B+</label>
+                                    <label><input type="checkbox"> B-</label>
+                                    <label><input type="checkbox"> AB+</label>
+                                    <label><input type="checkbox"> AB-</label>
+                                    <label><input type="checkbox"> O+</label>
+                                    <label><input type="checkbox"> O-</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer-front">
+                    <i class="fas fa-notes-medical"></i> INFORMAÇÕES MÉDICAS NO VERSO
+                </div>
+            </div>
+
+            <!-- Back Card -->
+            <div class="card back">
+                <div class="back-body">
+                    <div class="back-col left-col">
+                        <div class="contact-block">
+                            <div class="contact-header">
+                                <span class="icon-circle"><i class="fas fa-user-friends"></i></span>
+                                <span>CONTATO DE EMERGÊNCIA 1</span>
+                            </div>
+                            <div class="contact-field">
+                                <label>NOME:</label>
+                                <input type="text" class="dotted-input">
+                            </div>
+                            <div class="contact-field">
+                                <label>RELAÇÃO:</label>
+                                <input type="text" class="dotted-input">
+                            </div>
+                            <div class="contact-field">
+                                <label>TELEFONE:</label>
+                                <input type="text" class="dotted-input">
+                            </div>
+                        </div>
+                        <div class="contact-block mt-small">
+                            <div class="contact-header">
+                                <span class="icon-circle"><i class="fas fa-user-friends"></i></span>
+                                <span>CONTATO DE EMERGÊNCIA 2</span>
+                            </div>
+                            <div class="contact-field">
+                                <label>NOME:</label>
+                                <input type="text" class="dotted-input">
+                            </div>
+                            <div class="contact-field">
+                                <label>RELAÇÃO:</label>
+                                <input type="text" class="dotted-input">
+                            </div>
+                            <div class="contact-field">
+                                <label>TELEFONE:</label>
+                                <input type="text" class="dotted-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="back-col right-col">
+                        <div class="medical-block">
+                            <div class="medical-header">
+                                <span class="icon-circle"><i class="fas fa-exclamation-triangle"></i></span>
+                                <span>ALERGIAS</span>
+                            </div>
+                            <input type="text" class="dotted-input full-width">
+                            <input type="text" class="dotted-input full-width">
+                        </div>
+                        <div class="medical-block mt-small">
+                            <div class="medical-header">
+                                <span class="icon-circle"><i class="fas fa-heartbeat"></i></span>
+                                <span>CONDIÇÕES MÉDICAS</span>
+                            </div>
+                            <input type="text" class="dotted-input full-width">
+                            <input type="text" class="dotted-input full-width">
+                        </div>
+                        <div class="medical-block mt-small">
+                            <div class="medical-header">
+                                <span class="icon-circle"><i class="fas fa-pills"></i></span>
+                                <span>MEDICAÇÕES DE USO CONTÍNUO</span>
+                            </div>
+                            <input type="text" class="dotted-input full-width">
+                            <input type="text" class="dotted-input full-width">
+                        </div>
+                        <div class="medical-block mt-small">
+                            <div class="medical-header">
+                                <span class="icon-circle"><i class="fas fa-city"></i></span>
+                                <span>CIDADE ONDE RESIDE</span>
+                            </div>
+                            <input type="text" class="dotted-input full-width">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer-back">
+                    <i class="fas fa-phone-alt phone-icon"></i>
+                    <div class="footer-text">
+                        <span class="small-text">EMERGÊNCIA:</span>
+                        <span class="large-text">LIGUE 192 (SAMU)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
