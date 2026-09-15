@@ -3,5 +3,5 @@ Um simples arquivo HTML que permite criar um cartão de emergência com informa�
 <img width="1720" height="901" alt="image" src="https://github.com/user-attachments/assets/2cd966f3-097c-4908-bad8-c6318d8657f8" />
 
 
-Como usar
+Como usar:
 Basta baixar todos os arquivos do projeto para uma mesma pasta e executar o "index.html" que abrirá um HTML que permitira a confecção do cartão.
